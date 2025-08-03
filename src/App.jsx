@@ -1,23 +1,16 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import useAppContext, { AppContextProvider } from "./context/AppContext";
 import { TodoForm, TodoItem } from "./components";
 import { use } from "react";
 
-let count = 0;
 function AppContent() {
   const { todos, setTodos } = useAppContext();
-
+  const count = useRef(0)
   useEffect(() => {
-    console.log(count)
-    if (count) {
+    if (count.current) {
       localStorage.setItem("todos", JSON.stringify(todos));
-    } else{
-      const storedTodos = JSON.parse(localStorage.getItem("todos"));
-      if (storedTodos) {
-        setTodos(storedTodos);
-      }
-      count++;
     }
+    count.current = 1;
   }, [todos]);
 
   return (
@@ -45,6 +38,7 @@ function AppContent() {
 }
 
 export default function App() {
+  console.log("App rendered");
   return (
     <AppContextProvider>
       <AppContent />

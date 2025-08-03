@@ -3,6 +3,7 @@ import useAppContext from "../context/AppContext";
 
 
 function TodoForm() {
+  console.log("TodoForm rendered");
   const [todoMsg, setTodoMsg] = useState("");
   const { addTodo } = useAppContext();
 
